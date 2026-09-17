@@ -1,0 +1,39 @@
+{
+  "description": "Passive macOS sounds; no approval decisions or continuation outputs.",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/scripts/notify.py\"",
+            "timeout": 8
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/scripts/notify.py\"",
+            "timeout": 8
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "(^|[.__])(request_user_input(_async)?|AskUserQuestion)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/scripts/notify.py\"",
+            "timeout": 8
+          }
+        ]
+      }
+    ]
+  }
+}
