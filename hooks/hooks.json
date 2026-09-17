@@ -1,13 +1,14 @@
 {
-  "description": "Passive macOS sounds; no approval decisions or continuation outputs.",
+  "description": "Passive macOS, Linux and Windows sounds; no approval decisions or continuation outputs.",
   "hooks": {
     "Stop": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${PLUGIN_ROOT}/scripts/notify.py\"",
-            "timeout": 8
+            "command": "sh \"${PLUGIN_ROOT}/scripts/run.sh\"",
+            "timeout": 8,
+            "commandWindows": "python -X utf8 -c \"import os,runpy;runpy.run_path(os.path.join(os.environ['PLUGIN_ROOT'],'scripts','notify.py'),run_name='__main__')\""
           }
         ]
       }
@@ -17,8 +18,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${PLUGIN_ROOT}/scripts/notify.py\"",
-            "timeout": 8
+            "command": "sh \"${PLUGIN_ROOT}/scripts/run.sh\"",
+            "timeout": 8,
+            "commandWindows": "python -X utf8 -c \"import os,runpy;runpy.run_path(os.path.join(os.environ['PLUGIN_ROOT'],'scripts','notify.py'),run_name='__main__')\""
           }
         ]
       }
@@ -29,8 +31,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${PLUGIN_ROOT}/scripts/notify.py\"",
-            "timeout": 8
+            "command": "sh \"${PLUGIN_ROOT}/scripts/run.sh\"",
+            "timeout": 8,
+            "commandWindows": "python -X utf8 -c \"import os,runpy;runpy.run_path(os.path.join(os.environ['PLUGIN_ROOT'],'scripts','notify.py'),run_name='__main__')\""
           }
         ]
       }
