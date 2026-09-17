@@ -29,7 +29,7 @@ sudo apt install pulseaudio-utils
 
 Windows 的 Hook 使用 `commandWindows`，Python 在进程内读取插件根目录环境变量，避免依赖 PowerShell 和 CMD 不同的环境变量展开语法。包含中文或空格的安装路径纳入启动测试。
 
-本次仅自动更新当前 Mac 上的安装。其他机器需要分别安装 Python、配置音频后端，并将插件安装、启用到该机的 Codex；复制源码不会自动注册到另一台机器。
+每台机器需要分别安装 Python、配置音频后端，并将插件安装、启用到该机的 Codex；复制源码不会自动注册到另一台机器。
 
 ## 生效和验证
 
@@ -91,7 +91,7 @@ python3 scripts/generate_sounds.py
 printf '%s' '{"hook_event_name":"Stop","session_id":"test","turn_id":"1"}' | sh scripts/run.sh --dry-run
 ```
 
-已添加 GitHub Actions 的 macOS / Ubuntu / Windows × Python 3.9 / 3.13 测试矩阵。该工作流需将仓库推送到 GitHub 后才能运行。单元测试模拟音频后端，不要求 CI 配备扬声器。
+已添加 GitHub Actions 的 macOS / Ubuntu / Windows × Python 3.9 / 3.13 测试矩阵。该工作流在推送和 Pull Request 时运行，也支持手动触发。单元测试模拟音频后端，不要求 CI 配备扬声器。
 
 当前验证：Mac 上运行单元测试、启动器集成测试和实际音频播放测试；Windows/Linux 分支使用模拟后端覆盖选择、回退和超时。尚未完成 Windows/Linux 真实设备播放和 Codex 端到端验证。
 
@@ -106,13 +106,16 @@ printf '%s' '{"hook_event_name":"Stop","session_id":"test","turn_id":"1"}' | sh 
 - `tests/`：分类、并发去重、平台回退、缓存路径、启动器、输出契约测试。
 - `.github/workflows/test.yml`：三平台自动测试配置。
 
-## 本机维护
+## 源码与维护
 
-源码与本地 Git 仓库：`/Users/wayne/Documents/work/code/llm/codex-sounds`。
-个人插件源通过 `/Users/wayne/plugins/codex-sounds` 符号链接指向同一份源码，不维护第二份代码。
-插件标识：`codex-sounds@personal`；请保留源码目录。
+```sh
+git clone https://github.com/wangyendt/codex-sounds.git
+cd codex-sounds
+```
 
-修改后先使用 plugin-creator 的 `update_plugin_cachebuster.py` 更新版本缓存标记，再执行 `codex plugin add codex-sounds@personal`。已安装缓存不会自动跟随源码变化。新建任务以加载新版本，Hook 定义变化时重新审查、信任。
+克隆后可按上面的命令运行测试和试听。自动 Hook 提醒还需要通过 Codex 的插件安装流程注册、启用，并审查信任 Hooks；克隆本身不会修改 Codex 配置。
+
+在本地插件市场中开发时，让插件源指向同一份 Git 工作目录。修改后更新插件版本缓存标记，再从相应市场重新安装；已安装缓存不会自动跟随源码变化。新建任务以加载新版本，Hook 定义变化时重新审查、信任。
 
 ## 参考
 
