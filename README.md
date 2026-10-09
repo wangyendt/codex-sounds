@@ -10,6 +10,32 @@
 
 音效由仓库脚本原创合成，不包含 macOS 系统音效；三平台使用同一组短 WAV 文件。当前采用 C「极简电子」风格：圆润 FM 拨弦、轻微音高收束与短空间反射；每个提示音约 1.18 秒，16-bit / 44.1kHz 双声道。
 
+## 新电脑快速安装（不需要 npm）
+
+先准备支持插件命令的 Codex CLI、Git 和 Python 3.9+。macOS/Linux 需要可用的 `python3`；Windows 需要 PATH 中的 `python` 指向 Python 3，并准备可用音频设备。
+
+在终端执行，macOS、Linux 和 Windows 使用相同的两条安装命令：
+
+```sh
+codex plugin marketplace add wangyendt/codex-sounds --ref main
+codex plugin add codex-sounds@codex-sounds
+```
+
+然后启动 `codex`，在交互输入框中输入 `/hooks`，审查来源为 `codex-sounds` 的三个 Hook 并信任。重启桌面 App 或新建 CLI 会话后测试提示音。没有需要批准的操作时不会播放批准音；普通文字问句不播放结构化提问音。
+
+Ubuntu 缺少播放器时，安装 `pulseaudio-utils`（见下面的平台依赖）。本仓库自带插件市场清单 `.agents/plugins/marketplace.json`，Codex 负责从 GitHub 拉取、安装和更新；这条安装路径不使用 npm，也不需要手动克隆仓库或编辑用户配置。
+
+以后更新：
+
+```sh
+codex plugin marketplace upgrade codex-sounds
+codex plugin add codex-sounds@codex-sounds
+```
+
+更新后新建会话；若提示 Hooks 需要审查，重新确认。卸载插件使用 `codex plugin remove codex-sounds@codex-sounds`。
+
+已有 `codex-sounds@personal` 本地开发版的电脑不必重复安装同一插件。迁移到 GitHub 市场版时，先禁用或卸载旧来源，避免两份 Hook 同时播放。
+
 ## 平台与依赖
 
 所有平台需要 Python 3.9+（新安装建议使用仍受维护的 Python 3 版本），以及支持本插件 Hooks 的 Codex。

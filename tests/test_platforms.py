@@ -19,6 +19,20 @@ SPEC.loader.exec_module(n)
 
 
 class PlatformTests(unittest.TestCase):
+    def test_repository_marketplace_points_to_plugin_root(self):
+        marketplace = json.loads((ROOT / '.agents/plugins/marketplace.json').read_text())
+        self.assertEqual(marketplace['name'], 'codex-sounds')
+        self.assertEqual(len(marketplace['plugins']), 1)
+        entry = marketplace['plugins'][0]
+        self.assertEqual(entry['name'], 'codex-sounds')
+        self.assertEqual(entry['source']['source'], 'local')
+        self.assertTrue(entry['source']['path'].startswith('./'))
+        source_root = (ROOT / entry['source']['path']).resolve()
+        self.assertEqual(source_root, ROOT.resolve())
+        self.assertTrue((source_root / '.codex-plugin/plugin.json').is_file())
+        self.assertEqual(entry['policy']['installation'], 'AVAILABLE')
+        self.assertEqual(entry['policy']['authentication'], 'ON_INSTALL')
+
     def test_assets_are_distinct_short_pcm_wav(self):
         contents = []
         for kind in n.SOUNDS:
