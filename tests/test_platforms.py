@@ -25,12 +25,20 @@ class PlatformTests(unittest.TestCase):
             file = ROOT / 'assets' / (kind + '.wav')
             contents.append(file.read_bytes())
             with wave.open(str(file)) as wav:
-                self.assertEqual(wav.getnchannels(), 1)
+                self.assertEqual(wav.getnchannels(), 2)
                 self.assertEqual(wav.getsampwidth(), 2)
                 self.assertEqual(wav.getframerate(), 44100)
-                self.assertLess(wav.getnframes() / wav.getframerate(), 1)
+                self.assertLess(wav.getnframes() / wav.getframerate(), 1.5)
                 self.assertGreater(wav.getnframes(), 1000)
         self.assertEqual(len(set(contents)), 3)
+
+    def test_selected_c_assets_are_reproducible(self):
+        spec = importlib.util.spec_from_file_location('sound_generator', ROOT / 'scripts/generate_sounds.py')
+        generator = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(generator)
+        for kind in n.SOUNDS:
+            with wave.open(str(ROOT / 'assets' / (kind + '.wav'))) as wav:
+                self.assertEqual(generator.render(kind), wav.readframes(wav.getnframes()))
 
     def test_windows_uses_bounded_synchronous_player(self):
         with patch.object(n.sys, 'platform', 'win32'), patch.object(n.subprocess, 'run') as run:

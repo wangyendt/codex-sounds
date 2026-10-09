@@ -1,17 +1,17 @@
 {
   "name": "codex-sounds",
-  "version": "0.1.0+codex.20260917134112",
+  "version": "0.1.0+codex.20261009032705",
   "description": "Cross-platform sound notifications for turn end, questions, and approvals.",
   "author": {
     "name": "Local developer"
   },
   "interface": {
-    "displayName": "Codex \u97f3\u6548",
-    "shortDescription": "\u672c\u8f6e\u7ed3\u675f\u3001\u7b49\u5f85\u56de\u7b54\u3001\u7b49\u5f85\u6279\u51c6\u65f6\u64ad\u653e\u4e0d\u540c\u97f3\u6548\u3002",
-    "longDescription": "\u9002\u7528\u4e8e macOS\u3001Linux \u548c Windows \u7684\u8f7b\u91cf\u97f3\u6548\u63d2\u4ef6\u3002\u81ea\u5e26\u4e09\u79cd WAV \u97f3\u6548\uff0c\u91cd\u590d\u4e8b\u4ef6\u53bb\u91cd\uff0c\u4e0d\u4fee\u6539\u5ba1\u6279\u7ed3\u679c\u3002",
+    "displayName": "Codex 音效",
+    "shortDescription": "本轮结束、等待回答、等待批准时播放不同音效。",
+    "longDescription": "适用于 macOS、Linux 和 Windows 的轻量音效插件。自带三种 WAV 音效，重复事件去重，不修改审批结果。",
     "developerName": "Local developer",
     "category": "Productivity",
     "capabilities": [],
-    "defaultPrompt": "\u67e5\u770b Codex \u97f3\u6548\u63d2\u4ef6\u7684\u72b6\u6001\u548c\u4f7f\u7528\u8bf4\u660e\u3002"
+    "defaultPrompt": "查看 Codex 音效插件的状态和使用说明。"
   }
 }
